@@ -1,0 +1,40 @@
+language: node_js
+node_js: 12.13.0
+
+jdk:
+  - oraclejdk8
+
+services:
+  - postgresql
+
+addons:
+  sonarcloud: true
+
+before_script:
+  - psql -c 'create database "UN-Acarreo";' -U postgres
+
+git:
+  depth: false
+
+cache: npm
+
+script:
+  - cd server
+  - npm i
+  - npm install nyc --save-dev
+  - npm install --save-dev mocha
+  - npm i -D chai
+  - npm install --save-dev jsdom
+  - npm install -g sequelize 
+  - npm i -g sequelize-cli
+  - npm install -g pg
+  - cd DataBase
+  - node testSyncDB.js
+  - sequelize db:migrate
+  - sequelize db:seed:all
+  - cd ..
+  - npm run cover
+  - cd ..
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN_4 -Dsonar.organization=un-acarreo -Dsonar.projectKey=UN-Acarreo_Backend -Dsonar.sources='./server' -X
+
+  

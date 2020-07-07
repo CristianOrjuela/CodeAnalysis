@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.0.2",
+    "pg-hstore": "^2.3.3",
+    "pg-promise": "^10.4.4",
+    "sequelize": "^5.21.6",
+    "validator": "^13.0.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "node-mocks-http": "^1.8.1",
+    "nyc": "^15.1.0",
+    "sequelize-cli": "^5.5.1"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec --recursive --timeout 10000",
+    "cover": "nyc --reporter=text --reporter=lcov npm test",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
